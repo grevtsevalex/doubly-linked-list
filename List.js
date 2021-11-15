@@ -60,10 +60,27 @@ class List {
       previous: insertBeforeItem.previous,
     };
 
-
-
     insertBeforeItem.previous.next = node;
-    insertBeforeItem.previous = node;
+    insertBeforeItem.previous      = node;
+  }
+
+  prepend(data) {
+    const node = {
+      value: data,
+      previous: null,
+      next: null,
+    };
+
+    if (null === this.first) {
+      this.first = node;
+      this.last  = node;
+
+      return;
+    }
+
+    this.first.previous = node;
+    node.next = this.first;
+    this.first = node;
   }
 
   getByIndex(index) {
@@ -111,9 +128,10 @@ const list = new List();
 list.push('one');
 list.push('two');
 list.push('three');
-list.insert(6, 'one withhalf')
+list.insert(4, 'one withhalf')
 // console.log(list.getByIndex(6));
-// list.delete(1,1);
+list.delete(1,1);
+list.prepend('qwerewr');
 console.log([...list]);
 list.pop();
 list.pop();
